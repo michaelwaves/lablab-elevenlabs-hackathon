@@ -120,7 +120,7 @@ export default function Page() {
                 <div className="flex flex-row justify-between my-12">
                     <Link href="/dashboard" className="font-heading relative bg-gray-800  p-4 rounded-xl w-60 font-bold  hover:translate-x-2 text-white text-center  hover:translate-y-2 transition-all duration-75">
 
-                        Now Let's Chat!
+                        Now Let&rsquo;s Chat!
                         <motion.div whileTap={{ scale: 0.9 }} transition={{ duration: 0.5 }} className=" bg-gradient-to-r from-green-500 to-blue-500 w-60 h-16 rounded-xl absolute top-1 left-1 -z-10 "></motion.div>
                     </Link>
                 </div>
