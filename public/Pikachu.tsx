@@ -31,12 +31,15 @@ type ActionName = 'idle'
 type GLTFActions = Record<ActionName, THREE.AnimationAction>
 
 export function Pikachu(props: JSX.IntrinsicElements['group']) {
-  const group = useRef<THREE.Group>()
+  const group = useRef<any>()
   const { nodes, materials, animations } = useGLTF('/pikachu.gltf') as GLTFResult
-  const { actions } = useAnimations<GLTFActions>(animations, group)
+  const { actions } = useAnimations<any>(animations, group)
 
   useEffect(() => {
-    actions['idle'].play()
+    if (actions['idle']) {
+      actions['idle'].play()
+    }
+
   }, [actions])
   return (
     <group ref={group} {...props} dispose={null}>
