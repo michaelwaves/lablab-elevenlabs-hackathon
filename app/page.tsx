@@ -1,8 +1,10 @@
 "use client"
 import Link from "next/link"
 import { motion } from "framer-motion"
-import { useEffect } from "react"
+import { useEffect, useRef } from "react"
 export default function Home() {
+
+    const ref = useRef<HTMLSpanElement>(null)
     useEffect(() => {
         //a timer function that vertically scrolls through a list of words that replaves "Anyone"
         const words = ["Anyone", "Dua Lipa", "Elon Musk", "Joe Biden"]
@@ -14,8 +16,10 @@ export default function Home() {
                 i = 0
             }
 
-            document.querySelector(".border-b-p-5").innerHTML = words[i]
-
+            //document.querySelector(".border-b-p-5").innerHTML = words[i]
+            if (ref.current) {
+                ref.current.innerHTML = words[i]
+            }
 
 
 
@@ -30,7 +34,7 @@ export default function Home() {
         <div className="w-full min-h-screen h-auto flex flex-col  overflow-y-hidden">
 
             <div className="space-y-6 md:w-[clamp(600px,60vw,1000px) relative flex flex-col h-auto my-auto mx-auto w-full items-center justify-center">
-                <h1 className="text-white">Speak With <span className="border-b-p-5 border-b-2">Anyone</span>🛸</h1>
+                <h1 className="text-white">Speak With <span className="border-b-p-5 border-b-2" ref={ref}>Anyone</span>🛸</h1>
                 <p className="text-white">
                     Voice chat on demand with celebrities, characters, and more
                 </p>

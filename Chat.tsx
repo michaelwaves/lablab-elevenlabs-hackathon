@@ -31,7 +31,7 @@ export default function Chat({ modelId, name, prompt, img, img_alt }: { modelId:
         let chatId = user?.uid + modelId
         const getMessages = async (chatId: string) => {
             let messages = (await getDocs(query(collection(db, `/chats/${chatId}/messages`), orderBy("createdAt")))).docs.map((d) => d.data() as Message)
-            const sortFunction = (a: Message, b: Message) => {
+            const sortFunction = (a: any, b: any) => {
                 if (a.createdAt?.toDate() < b.createdAt?.toDate()) {
                     return 1
                 }
