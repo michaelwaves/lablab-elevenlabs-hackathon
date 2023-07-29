@@ -5,6 +5,8 @@ import { db, useAuth, signInWithGoogle, auth } from "@/Firebase"
 import { getDocs, collection, setDoc, getDoc, doc, updateDoc, arrayRemove } from "firebase/firestore"
 import GoogleButton from "react-google-button"
 import { signOut } from "firebase/auth"
+import { motion } from "framer-motion"
+import Link from "next/link"
 
 export default function Page() {
 
@@ -102,7 +104,13 @@ export default function Page() {
     return (
         <div className="w-full h-auto min-h-screen flex flex-col items-center justify-center bg-gray-700">
             <div className="w-[clamp(400px, 50vw, 1000px)] flex flex-col items-center justify-center m-auto">
+                <div className="flex flex-row justify-between my-12">
+                    <Link href="/dashboard" className="font-heading relative bg-gray-800  p-4 rounded-xl w-60 font-bold  hover:translate-x-2 text-white text-center  hover:translate-y-2 transition-all duration-75">
 
+                        Now Let's Chat!
+                        <motion.div whileTap={{ scale: 0.9 }} transition={{ duration: 0.5 }} className=" bg-gradient-to-r from-green-500 to-blue-500 w-60 h-16 rounded-xl absolute top-1 left-1 -z-10 "></motion.div>
+                    </Link>
+                </div>
                 <form onSubmit={handleSubmit} className='z-50 fixed top-2 bg-gray-500 flex flex-row items-center py-2 justify-center'>
                     <input
                         id="input"

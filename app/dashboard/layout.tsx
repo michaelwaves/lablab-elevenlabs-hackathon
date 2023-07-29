@@ -27,8 +27,10 @@ export default function Layout({ children }: { children: React.ReactNode }) {
         }
         if (signedIn) {
             gum(user?.uid)
+        } else {
+            gum(undefined)
         }
-    }, [])
+    }, [signedIn, user?.uid])
 
 
 
@@ -63,7 +65,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
 
             {leftOpen && <div className="w-[clamp(400px,50vw,400px)] absolute h-full z-30 bg-white">
                 <div className="flex flex-row justify-between">
-                    <Link href="/chat" className="font-heading relative bg-gray-800  p-4 rounded-xl w-60 font-bold  hover:translate-x-2 text-white text-center  hover:translate-y-2 transition-all duration-75">
+                    <Link href="/browse" className="font-heading relative bg-gray-800  p-4 rounded-xl w-60 font-bold  hover:translate-x-2 text-white text-center  hover:translate-y-2 transition-all duration-75">
 
                         Find More Models
                         <motion.div whileTap={{ scale: 0.9 }} transition={{ duration: 0.5 }} className=" bg-gradient-to-r from-green-500 to-blue-500 w-60 h-16 rounded-xl absolute top-1 left-1 -z-10 "></motion.div>
@@ -81,7 +83,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
             </div>
             }
             <div className="sm:flex sm:flex-col hidden w-[clamp(400px,50vw,400px)] p-4 bg-gray-600">
-                <Link href="/chat" className="font-heading relative bg-gray-800  p-4 rounded-xl w-60 font-bold  hover:translate-x-2 text-white text-center  hover:translate-y-2 transition-all duration-75">
+                <Link href="/browse" className="font-heading relative bg-gray-800  p-4 rounded-xl w-60 font-bold  hover:translate-x-2 text-white text-center  hover:translate-y-2 transition-all duration-75">
 
                     Find More Models
                     <motion.div whileTap={{ scale: 0.9 }} transition={{ duration: 0.5 }} className=" bg-gradient-to-r from-green-500 to-blue-500 w-60 h-16 rounded-xl absolute top-1 left-1 -z-10 "></motion.div>

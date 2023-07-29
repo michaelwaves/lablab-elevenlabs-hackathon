@@ -90,7 +90,7 @@ export default function Chat({ modelId, name, prompt, img, img_alt }: { modelId:
                     {signedIn && <button className='bg-gray-700 w-20 p-2 text-bold text-white font-heading absolute top-0' onClick={() => signOut(auth)}>Signout</button>}
                     <AudioLevel setVolume={setVolume} audioPath={audioURL} audioElement={audio} />
                     <AudioPlayer voiceId={modelId} text={lastAIMessage} setAudioURL={setAudioURL} audioURL={audioURL} setAudio={setAudio} />
-                    {signedIn && <button className='bg-red-500 w-20 p-2 text-bold text-white font-heading' onClick={() => deleteCollection(`/chats/${chatId}/messages`)}>Delete Messages</button>}
+                    {signedIn && <button className='bg-red-500 hover:bg-red-700 w-20 h-fit p-2 text-bold text-white font-heading' onClick={() => deleteCollection(`/chats/${chatId}/messages`)}>Delete Messages</button>}
 
                 </div>
 
