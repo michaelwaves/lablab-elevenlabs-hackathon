@@ -37,6 +37,8 @@
   ],
   "exclude": [
     "node_modules",
-    "public"
+    "public",
+    "public/**/*",
+    "public/Pikachu.tsx",
   ]
 }
