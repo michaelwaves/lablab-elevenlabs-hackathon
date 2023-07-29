@@ -12,6 +12,7 @@ export default function Page() {
 
     const [input, setInput] = useState('')
     const [models, setModels] = useState<any>([])
+    const [filteredModels, setFilteredModels] = useState<any>([])
     const [userModels, setUserModels] = useState<any>([])
     const { user, signedIn } = useAuth()
 
@@ -48,6 +49,7 @@ export default function Page() {
         const getAllModels = async () => {
             let m = (await getDocs(collection(db, 'models'))).docs.map((d) => d.data())
             setModels(m)
+            setFilteredModels(m)
             console.log(m)
         }
         getAllModels()
@@ -64,8 +66,22 @@ export default function Page() {
         setUserModels(userModels)
     }, [userModels])
 
+    useEffect(() => {
+        if (input === '') {
+            setFilteredModels(models)
+        }
+    }, [input, models])
 
-    let modelCards = models.map((model: any) => {
+    const handleSubmit = (e: any) => {
+        e.preventDefault()
+        let filtered = models.filter((model: any) => {
+            return model.name.toLowerCase().includes(input.toLowerCase())
+        }
+        )
+        setFilteredModels(filtered)
+    }
+
+    let modelCards = filteredModels.map((model: any) => {
         if (model === undefined) {
             return
         }
@@ -96,10 +112,7 @@ export default function Page() {
     })
 
 
-    const handleSubmit = (e: any) => {
-        e.preventDefault()
-        console.log(input)
-    }
+
 
     return (
         <div className="w-full h-auto min-h-screen flex flex-col items-center justify-center bg-gray-700">
