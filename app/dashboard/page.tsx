@@ -6,7 +6,9 @@ import { Canvas } from "@react-three/fiber"
 export default function Page() {
     return (
         <div className="w-full">
+
             <h3 className="bg-gray-700 text-white mx-auto">Welcome to the Vocalverse. Pick a model to get started</h3>
+
             <div className="w-full h-screen bg-galaxy">
                 <Canvas>
                     <OrbitControls />

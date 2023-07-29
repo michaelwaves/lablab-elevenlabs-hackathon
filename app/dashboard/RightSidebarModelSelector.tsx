@@ -1,8 +1,8 @@
 export default function RightSidebarModelInspector({ img, img_alt, banner, banner_alt, name, tagline, description, date, tags }: { img: string, img_alt: string, banner: string, banner_alt: string, name: string, tagline: string, description: string, date: string, tags: string[] }) {
 
-    let tagsArray = tags.map((tag) => {
+    let tagsArray = tags.map((tag, index) => {
         return (
-            <div className="bg-p-6 rounded-full px-2 ">
+            <div key={index} className="bg-p-6 rounded-full px-2 ">
                 <p className="text-sm">{tag}</p>
             </div>
         )
