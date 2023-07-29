@@ -90,7 +90,7 @@ export default function Chat({ modelId, name, prompt, img, img_alt }: { modelId:
                         <div>
                             <div className='flex flex-row space-x-2 items-center mb-2'>
                                 <div className='font-bold'>{m.role === 'user' ? 'User ' : name + ' '}</div>
-                                {/* <p className='text-sm'>{formatDate(m.createdAt ?? new Date())}</p> */}
+                                <p className='text-sm'>{formatDate(m.createdAt.toDate() ?? new Date())}</p>
                             </div>
                             {m.content}
                         </div>

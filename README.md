@@ -32,3 +32,12 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+
+## Add Model To Firebase
+1. Add profile image and banner image to firebase storage
+2. Copy links to these images
+3. Go to firestore and create new document in model collection
+4. Id it as voiceId of model (don't auto ID)
+5. Paste image url into img and banner url into banner
+5. Add fields: name, description, img_alt,banner_alt, prompt, voiceId, date (as a string)
+6. Add tags as array of strings
