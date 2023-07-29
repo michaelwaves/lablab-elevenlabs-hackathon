@@ -2,17 +2,15 @@
 import Link from "next/link"
 
 import SidebarModelSelector from "./SidebarModelSelector"
-import RightSidebarModelInspector from "./RightSidebarModelSelector"
 
 import { motion } from "framer-motion"
-import { useState, useEffect, ReactComponentElement } from "react"
-import { getUserModels } from "@/Firebase"
-import { use } from "react"
+import { useState, useEffect, } from "react"
+import { getUserModels, useAuth } from "@/Firebase"
 
 export default function Layout({ children }: { children: React.ReactNode }) {
     const [leftOpen, setLeftOpen] = useState(false)
     const [rightOpen, setRightOpen] = useState(false)
-    const [models, setModels] = useState([])
+    const [models, setModels] = useState<any>([])
     const handleResize = () => {
         if (window.innerWidth >= 760) {
             setLeftOpen(false)
@@ -20,17 +18,21 @@ export default function Layout({ children }: { children: React.ReactNode }) {
         }
     };
 
+    const { user, signedIn } = useAuth()
+
     useEffect(() => {
-        const gum = async () => {
-            let m = await getUserModels("HJ7clLOTV5TKRNaTfB5S")
+        const gum = async (uid: string | undefined) => {
+            let m = await getUserModels(uid ?? "HJ7clLOTV5TKRNaTfB5S")
             setModels(m)
         }
-        gum()
+        if (signedIn) {
+            gum(user?.uid)
+        }
     }, [])
 
 
 
-    let sideBarModelSelectors = models.map((model) => {
+    let sideBarModelSelectors = models.map((model: any) => {
         if (model === undefined) {
             return
         }

@@ -13,7 +13,12 @@ export default function Home() {
             if (i >= words.length) {
                 i = 0
             }
+
             document.querySelector(".border-b-p-5").innerHTML = words[i]
+
+
+
+
         }, 1000)
 
         return () => {
@@ -29,7 +34,7 @@ export default function Home() {
                 <p className="text-white">
                     Voice chat on demand with celebrities, characters, and more
                 </p>
-                <Link href="/chat" className="font-heading relative bg-gray-800  p-4 rounded-xl w-60 font-bold  hover:translate-x-2 text-white text-center  hover:translate-y-2 transition-all duration-75">
+                <Link href="/dashboard" className="font-heading relative bg-gray-800  p-4 rounded-xl w-60 font-bold  hover:translate-x-2 text-white text-center  hover:translate-y-2 transition-all duration-75">
 
                     Chat with Dua Lipa
                     <motion.div whileTap={{ scale: 0.9 }} transition={{ duration: 0.5 }} className=" bg-gradient-to-r from-green-500 to-blue-500 w-60 h-16 rounded-xl absolute top-1 left-1 -z-10 "></motion.div>
