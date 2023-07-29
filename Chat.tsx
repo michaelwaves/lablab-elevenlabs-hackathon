@@ -9,7 +9,7 @@ import { Message } from 'ai'
 import { formatDate } from './app/chat/utils'
 
 import GoogleButton from 'react-google-button'
-import { useAuth, signInWithGoogle, auth, checkAndAddChatToFireStore, addMessageToChat, db } from '@/Firebase'
+import { useAuth, signInWithGoogle, auth, checkAndAddChatToFireStore, addMessageToChat, db, deleteCollection } from '@/Firebase'
 import { getDocs, collection, orderBy, query } from 'firebase/firestore'
 import { signOut } from 'firebase/auth'
 
@@ -22,7 +22,7 @@ export default function Chat({ modelId, name, prompt, img, img_alt }: { modelId:
     const [audio, setAudio] = useState<HTMLAudioElement | undefined>(undefined)
 
     const { user, signedIn } = useAuth()
-
+    let chatId = user?.uid + modelId
 
     useEffect(() => {
         if (user) {
@@ -90,6 +90,8 @@ export default function Chat({ modelId, name, prompt, img, img_alt }: { modelId:
                     {signedIn && <button className='bg-gray-700 w-20 p-2 text-bold text-white font-heading absolute top-0' onClick={() => signOut(auth)}>Signout</button>}
                     <AudioLevel setVolume={setVolume} audioPath={audioURL} audioElement={audio} />
                     <AudioPlayer voiceId={modelId} text={lastAIMessage} setAudioURL={setAudioURL} audioURL={audioURL} setAudio={setAudio} />
+                    {signedIn && <button className='bg-red-500 w-20 p-2 text-bold text-white font-heading' onClick={() => deleteCollection(`/chats/${chatId}/messages`)}>Delete Messages</button>}
+
                 </div>
 
             </div>
@@ -100,7 +102,7 @@ export default function Chat({ modelId, name, prompt, img, img_alt }: { modelId:
                         <div>
                             <div className='flex flex-row space-x-2 items-center mb-2'>
                                 <div className='font-bold'>{m.role === 'user' ? 'User ' : name + ' '}</div>
-                                <p className='text-sm'>{formatDate(m.createdAt.toDate() ?? new Date())}</p>
+                                {/* <p className='text-sm'>{formatDate(m.createdAt.toDate() ?? new Date())}</p> */}
                             </div>
                             {m.content}
                         </div>

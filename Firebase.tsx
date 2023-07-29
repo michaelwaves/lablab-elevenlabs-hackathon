@@ -1,7 +1,7 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 import { getAnalytics, isSupported } from "firebase/analytics";
-import { getFirestore, collection, getDoc, getDocs, addDoc, setDoc } from "firebase/firestore"
+import { getFirestore, collection, getDoc, getDocs, addDoc, setDoc, deleteDoc } from "firebase/firestore"
 import { doc } from "firebase/firestore";
 import { User, getAuth, onAuthStateChanged, GoogleAuthProvider, signInWithPopup } from "firebase/auth"
 import { getStorage, ref } from "firebase/storage"
@@ -111,7 +111,17 @@ export const checkAndAddChatToFireStore = async (uid: string, modelId: string, m
     })
 }
 
+export async function deleteCollection(path: string) {
+    const querySnapshot = await getDocs(collection(db, path));
+    querySnapshot.forEach((d) => {
+        // doc.data() is never undefined for query doc snapshots
+        const docRef = doc(db, path, d.id);
+        deleteDoc(docRef);
+    });
+}
+
 export const signInWithGoogle = () => {
+    console.log("button clicked")
     signInWithPopup(auth, provider)
         .then((result) => {
             // This gives you a Google Access Token. You can use it to access the Google API.

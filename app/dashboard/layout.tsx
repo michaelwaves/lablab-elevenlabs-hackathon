@@ -12,7 +12,7 @@ import { use } from "react"
 export default function Layout({ children }: { children: React.ReactNode }) {
     const [leftOpen, setLeftOpen] = useState(false)
     const [rightOpen, setRightOpen] = useState(false)
-    //const [models, setModels] = useState([])
+    const [models, setModels] = useState([])
     const handleResize = () => {
         if (window.innerWidth >= 760) {
             setLeftOpen(false)
@@ -20,15 +20,15 @@ export default function Layout({ children }: { children: React.ReactNode }) {
         }
     };
 
-    /*  useEffect(() => {
-         const gum = async () => {
-             let m = await getUserModels("HJ7clLOTV5TKRNaTfB5S")
-             setModels(m)
-         }
-         gum()
-     }, []) */
+    useEffect(() => {
+        const gum = async () => {
+            let m = await getUserModels("HJ7clLOTV5TKRNaTfB5S")
+            setModels(m)
+        }
+        gum()
+    }, [])
 
-    let models = use(getUserModels("HJ7clLOTV5TKRNaTfB5S"))
+
 
     let sideBarModelSelectors = models.map((model) => {
         if (model === undefined) {
