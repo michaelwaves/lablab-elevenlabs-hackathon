@@ -1,5 +1,7 @@
 "use client"
 import Link from "next/link"
+import { AiOutlineCloseSquare } from "react-icons/ai"
+import { BsFillArrowRightSquareFill } from "react-icons/bs"
 
 import SidebarModelSelector from "./SidebarModelSelector"
 
@@ -58,12 +60,15 @@ export default function Layout({ children }: { children: React.ReactNode }) {
     }, []);
     return (
         <div className="w-full min-h-screen h-auto flex flex-row">
-            <div className="block sm:hidden w-12">
-                <button onClick={() => setLeftOpen(true)}>X</button>
+            <div className="block sm:hidden w-12 absolute top-2 left-2">
+                <button onClick={() => setLeftOpen(true)}>
+                    <BsFillArrowRightSquareFill className="text-white text-3xl" />
+                </button>
+
             </div>
 
 
-            {leftOpen && <div className="w-[clamp(400px,50vw,400px)] absolute h-full z-30 bg-white">
+            {/*  {leftOpen && <div className="w-[clamp(400px,50vw,400px)] absolute h-full z-30 bg-white">
                 <div className="flex flex-row justify-between">
                     <Link href="/browse" className="font-heading relative bg-gray-800  p-4 rounded-xl w-60 font-bold  hover:translate-x-2 text-white text-center  hover:translate-y-2 transition-all duration-75">
 
@@ -81,8 +86,8 @@ export default function Layout({ children }: { children: React.ReactNode }) {
                 </div>
 
             </div>
-            }
-            <div className="sm:flex sm:flex-col hidden w-[clamp(400px,50vw,400px)] p-4 bg-gray-600">
+            } */}
+            <div className={`sm:flex sm:flex-col ${leftOpen ? "block" : "hidden"} absolute sm:relative w-[clamp(400px,50vw,400px)] p-4 bg-gray-600`}>
                 <Link href="/browse" className="font-heading relative bg-gray-800  p-4 rounded-xl w-60 font-bold  hover:translate-x-2 text-white text-center  hover:translate-y-2 transition-all duration-75">
 
                     Find More Models
@@ -90,10 +95,15 @@ export default function Layout({ children }: { children: React.ReactNode }) {
                 </Link>
                 <div className="mt-6 text-white">
                     <b>Direct Messages</b>
-                    <div className="flex flex-col mt-4">
-
+                    <div className="flex flex-col mt-4 bg-gray-600 z-10">
                         {sideBarModelSelectors}
                     </div>
+                </div>
+                <div className="block sm:hidden w-12 absolute top-2 right-2">
+                    <button onClick={() => setLeftOpen(false)}>
+                        <AiOutlineCloseSquare className="text-white text-3xl" />
+                    </button>
+
                 </div>
             </div>
             {children}
