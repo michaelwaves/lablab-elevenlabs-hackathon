@@ -6,8 +6,8 @@ export default function AudioPlayer({ text, audioURL, setAudioURL, setAudio, voi
     async function postData(voiceID: string) {
         const url = `https://api.elevenlabs.io/v1/text-to-speech/${voiceID}`;
         //const apiKey = '1ea3928d9c20431833bab8e611aa2a53';
-        //const apiKey = process.env.NEXT_PUBLIC_ELEVENLABS_API_KEY as string
-        const apiKey = "977fd85bffb4c70a08e4651d1ba44c05"
+        const apiKey = process.env.NEXT_PUBLIC_ELEVENLABS_API_KEY as string
+        //const apiKey = "977fd85bffb4c70a08e4651d1ba44c05"
 
         const requestOptions = {
             method: 'POST',
@@ -17,7 +17,7 @@ export default function AudioPlayer({ text, audioURL, setAudioURL, setAudio, voi
             },
             body: JSON.stringify({
                 text: text,
-                model_id: voiceId,
+                model_id: "eleven_multilingual_v2",
                 voice_settings: {
                     stability: 0,
                     similarity_boost: 0,
