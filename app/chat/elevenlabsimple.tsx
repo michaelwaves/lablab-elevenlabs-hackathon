@@ -14,6 +14,7 @@ export default function AudioPlayer({ text, audioURL, setAudioURL, setAudio, voi
             headers: {
                 'Content-Type': 'application/json',
                 'xi-api-key': apiKey,
+                'accept': 'audio/mpeg'
             },
             body: JSON.stringify({
                 text: text,
