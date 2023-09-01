@@ -1,13 +1,13 @@
 import { useState, useEffect } from "react"
 import { voiceIds } from "./voiceIds"
+import axios from "axios";
 export default function AudioPlayer({ text, audioURL, setAudioURL, setAudio, voiceId }:
     { text: string | undefined, audioURL: string | undefined, setAudioURL: Function, setAudio: Function, voiceId: string }) {
     //const [audioURL, setAudioURL] = useState<string | undefined>(undefined)
     async function postData(voiceID: string) {
         const url = `https://api.elevenlabs.io/v1/text-to-speech/${voiceID}`;
-        //const apiKey = '1ea3928d9c20431833bab8e611aa2a53';
+
         const apiKey = process.env.NEXT_PUBLIC_ELEVENLABS_API_KEY as string
-        //const apiKey = "977fd85bffb4c70a08e4651d1ba44c05"
 
         const requestOptions = {
             method: 'POST',
@@ -18,7 +18,7 @@ export default function AudioPlayer({ text, audioURL, setAudioURL, setAudio, voi
             },
             body: JSON.stringify({
                 text: text,
-                model_id: "eleven_multilingual_v2",
+                model_id: "eleven_monolingual_v1",
                 voice_settings: {
                     stability: 0,
                     similarity_boost: 0,
@@ -28,13 +28,34 @@ export default function AudioPlayer({ text, audioURL, setAudioURL, setAudio, voi
             })
         };
 
+        const axiosConfig = {
+            method: 'POST',
+            url: url,
+            headers: {
+                'Content-Type': 'application/json',
+                'xi-api-key': apiKey,
+                'accept': 'audio/mpeg'
+            },
+            data: {
+                text: text,
+                model_id: "eleven_monolingual_v1",
+                voice_settings: {
+                    stability: 0,
+                    similarity_boost: 0,
+                    style: 0.5,
+                    use_speaker_boost: false
+                }
+            },
+        }
+
         try {
-            const response = await fetch(url, requestOptions);
-            if (!response.ok) {
+            const response = await axios(axiosConfig)   //fetch(url, requestOptions);
+            console.log(requestOptions)
+            if (response.status !== 200) {
                 throw new Error('Request failed with status ' + response.status);
             }
             // Handle the response here
-            const blob = await response.blob()
+            const blob = await response.data
             console.log(blob)
             const audiourl = URL.createObjectURL(blob)
             setAudioURL(audiourl)

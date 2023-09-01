@@ -70,7 +70,7 @@ export function useAuth() {
     return { signedIn, user }
 
 }
-const checkAndAddUserToFireStore = (user: User, models = ["gb2LF0RRGYgAO1TD7hyM"], chats = []) => {
+const checkAndAddUserToFireStore = (user: User, models = ["z6VFmukOwPqiIteyPaqo"], chats = []) => {
     const uid = user.uid;
     const email = user.email;
     const firstName = user.displayName?.split(' ')[0];
