@@ -4,7 +4,7 @@ export default function AudioPlayer({ text, audioURL, setAudioURL, setAudio, voi
     { text: string | undefined, audioURL: string | undefined, setAudioURL: Function, setAudio: Function, voiceId: string }) {
     //const [audioURL, setAudioURL] = useState<string | undefined>(undefined)
     async function postData(voiceID: string) {
-        const url = `https://api.elevenlabs.io/v1/text-to-speech/${voiceID}?optimize_streaming_latency=0`;
+        const url = `https://api.elevenlabs.io/v1/text-to-speech/${voiceID}`;
         //const apiKey = '1ea3928d9c20431833bab8e611aa2a53';
         const apiKey = process.env.NEXT_PUBLIC_ELEVENLABS_API_KEY as string
 
