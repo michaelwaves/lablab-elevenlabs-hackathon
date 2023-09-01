@@ -62,7 +62,7 @@ export default function AudioPlayer({ text }: { text: string }) {
 
     async function postData() {
         const url = 'https://api.elevenlabs.io/v1/text-to-speech/1L397VD01OlEpqZEK2aP?optimize_streaming_latency=0';
-        const apiKey = '977fd85bffb4c70a08e4651d1ba44c05';
+        const apiKey = process.env.NEXT_PUBLIC_ELEVENLABS_API_KEY as string;
 
         const requestOptions = {
             method: 'POST',
