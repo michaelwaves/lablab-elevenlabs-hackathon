@@ -14,11 +14,10 @@ export default function AudioPlayer({ text, audioURL, setAudioURL, setAudio, voi
             headers: {
                 'Content-Type': 'application/json',
                 'xi-api-key': apiKey,
-                'optimize_streaming_latency': "10"
             },
             body: JSON.stringify({
                 text: text,
-                model_id: 'eleven_monolingual_v1',
+                model_id: voiceId,
                 voice_settings: {
                     stability: 0,
                     similarity_boost: 0,
