@@ -209,3 +209,18 @@ export async function getUserModels(userId: string) {
     }
     return modelsArray
 }
+
+export async function duplicateRecordWithNewVoiceId(d: any) {
+    let data = d.data()
+    let newId = d.data().voiceId
+    await setDoc(doc(db, "models", newId), data)
+}
+
+
+export async function newVoices() {
+    let docs = await getDocs(collection(db, "models"))
+    for (let i = 0; i < docs.docs.length; i++) {
+        duplicateRecordWithNewVoiceId(docs.docs[i])
+    }
+}
+

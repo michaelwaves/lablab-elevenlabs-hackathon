@@ -1,6 +1,7 @@
-import { useState, useEffect } from "react"
+import { useState, useEffect, useRef } from "react"
 import { voiceIds } from "./voiceIds"
 import axios from "axios";
+import { newVoices } from "@/Firebase";
 export default function AudioPlayer({ text, audioURL, setAudioURL, setAudio, voiceId }:
     { text: string | undefined, audioURL: string | undefined, setAudioURL: Function, setAudio: Function, voiceId: string }) {
     //const [audioURL, setAudioURL] = useState<string | undefined>(undefined)
@@ -34,7 +35,8 @@ export default function AudioPlayer({ text, audioURL, setAudioURL, setAudio, voi
             headers: {
                 'Content-Type': 'application/json',
                 'xi-api-key': apiKey,
-                'accept': 'audio/mpeg'
+                'accept': 'audio/mpeg',
+                'output_format': 'mp3_44100'
             },
             data: {
                 text: text,
@@ -49,15 +51,17 @@ export default function AudioPlayer({ text, audioURL, setAudioURL, setAudio, voi
         }
 
         try {
-            const response = await axios(axiosConfig)   //fetch(url, requestOptions);
+            const response = await fetch(url, requestOptions);
+            //const response = await axios(axiosConfig)  
             console.log(requestOptions)
-            if (response.status !== 200) {
+            if (!response.ok) {
                 throw new Error('Request failed with status ' + response.status);
             }
             // Handle the response here
-            const blob = await response.data
+            const data = await response.blob()
+            const blob = new Blob([data], { type: 'audio/mpeg' })
             console.log(blob)
-            const audiourl = URL.createObjectURL(blob)
+            const audiourl = URL.createObjectURL(data)
             setAudioURL(audiourl)
 
         } catch (error) {
@@ -69,6 +73,9 @@ export default function AudioPlayer({ text, audioURL, setAudioURL, setAudio, voi
     const playAudio = () => {
         const audio = new Audio(audioURL);
         audio.play();
+        /*  if (ref.current) {
+             ref.current.play()
+         } */
         console.log(audioURL)
         setAudioURL(audioURL)
         setAudio(audio)
@@ -86,9 +93,12 @@ export default function AudioPlayer({ text, audioURL, setAudioURL, setAudio, voi
             playAudio()
         }
     }, [audioURL])
+    const ref = useRef<HTMLAudioElement>(null)
 
     return (
         <div>
+            <audio src={audioURL} ref={ref} />
+            {/* <button onClick={() => newVoices()}>New Voices</button> */}
             {/* <h1>audio</h1>
             <button onClick={playAudio}>Play</button> */}
         </div>
